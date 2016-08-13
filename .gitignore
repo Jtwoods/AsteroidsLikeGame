@@ -25,5 +25,5 @@ Thumbs.db
 *.db
 *.opendb
 packages/*
-Debug/*
-Release/*
+debug/*
+release/*
