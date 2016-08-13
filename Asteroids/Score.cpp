@@ -12,7 +12,7 @@
 #include <string.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <glut.h>
+#include <gl\freeglut.h>
 #include <sstream>
 #include <iostream>
 
@@ -36,13 +36,10 @@ bool Score::addScore(long num)
 	score += num;
 	toBonus -= num;
 
-	cout << toBonus << "\n";
-
 	if(toBonus <= 0)
 	{
 		toReturn = true;
 		toBonus = BONUS;
-		cout << "here\n";
 	}
 
 	return toReturn;
