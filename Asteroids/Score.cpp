@@ -36,13 +36,10 @@ bool Score::addScore(long num)
 	score += num;
 	toBonus -= num;
 
-	cout << toBonus << "\n";
-
 	if(toBonus <= 0)
 	{
 		toReturn = true;
 		toBonus = BONUS;
-		cout << "here\n";
 	}
 
 	return toReturn;
