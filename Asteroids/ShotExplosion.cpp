@@ -9,7 +9,7 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <glut.h>
+#include <gl\freeglut.h>
 #include "GlobalAsteroidVariables.h"
 #include "Movement.h"
 #include "ShotParticle.h"

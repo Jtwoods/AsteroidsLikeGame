@@ -20,7 +20,7 @@
 #include <string.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <glut.h>
+#include <gl\freeglut.h>
 #include <math.h>
 #include <memory>
 #include <list>
