@@ -62,9 +62,10 @@ void handle_rotation(int n)
 	if(level->done)
 	{
 		unsigned int toTransfer = level->stars->getName();
+
 		//Create a level with a random number of asteroids greater than the number in the last.
-		level = shared_ptr<Level>(new Level((rand() % MAX_SPAWN_ASTEROIDS) + level->current, player, level->player_lives.size(), level->score.getScore()));
-		level->stars = shared_ptr<Stars>(new Stars(toTransfer));
+		level = make_shared<Level>((rand() % MAX_SPAWN_ASTEROIDS) + level->current, player, level->player_lives.size(), level->score.getScore());
+		level->stars = make_shared<Stars>(toTransfer);
 	}
 	
 
@@ -110,10 +111,10 @@ void handle_menu( int ID )
 	break;
 	case 1:
 	{
-		player = shared_ptr<PlayerSpaceShip>(new PlayerSpaceShip());
+		player = make_shared<PlayerSpaceShip>();
 		unsigned int toTransfer = level->stars->getName();
-		level = shared_ptr<Level>(new Level((rand() % MAX_NEW_ASTEROIDS) + 1, player, 3, 0));
-		level->stars = shared_ptr<Stars>(new Stars(toTransfer));
+		level = make_shared<Level>((rand() % MAX_NEW_ASTEROIDS) + 1, player, 3, 0);
+		level->stars = make_shared<Stars>(toTransfer);
 	}
   }
   
@@ -214,8 +215,8 @@ void main( int argc, char *argv[] )
 
 
   	//Initialize the space craft and the initial level.
-	player = shared_ptr<PlayerSpaceShip>(new PlayerSpaceShip());
-	level = shared_ptr<Intro>(new Intro());
+	player = make_shared<PlayerSpaceShip>();
+	level = make_shared<Intro>();
 
   glutDisplayFunc( display_obj );	// Setup GLUT callbacks
   

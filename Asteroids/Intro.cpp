@@ -28,7 +28,7 @@ Intro::Intro()
 
 	current = 1;
 	done = false;
-	stars = shared_ptr<Stars>(new Stars());
+	stars = make_shared<Stars>();
 }
 
 void Intro::makeShot()

@@ -33,7 +33,7 @@ Level::Level()
 	mover = Movement();
 	deadCount = 0;
 	collider = Collisions();
-	alienShip = shared_ptr<AlienSpaceShip>(new AlienSpaceShip());
+	alienShip = make_shared<AlienSpaceShip>();
 
 	lives = 3;
 	game_over = false;
@@ -45,11 +45,11 @@ Level::Level()
 	done = false;
 	for(int i = 0; i < 1; i++)
 	{
-		objects.push_back(shared_ptr<GameObject>(new Asteroid(1)));
+		objects.push_back(make_shared<Asteroid>(1));
 	}
 	for(int i = 0; i < lives; i++) 
 	{
-		player_lives.push_back(shared_ptr<GameObject>(new Life(i)));
+		player_lives.push_back(make_shared<Life>(i));
 	}
 }
 
@@ -73,17 +73,17 @@ Level::Level(int numberOfAsteroids, shared_ptr<PlayerSpaceShip> player, int live
 
 	done = false;
 	current = numberOfAsteroids;
-	alienShip = shared_ptr<AlienSpaceShip>(new AlienSpaceShip(false));
+	alienShip = make_shared<AlienSpaceShip>(false);
 
 	//alienShip->alive = true;
 
 	for(int i = 0; i < numberOfAsteroids; i++)
 	{
-		objects.push_back(shared_ptr<GameObject>(new Asteroid(1)));
+		objects.push_back(make_shared<Asteroid>(1));
 	}
 	for(int i = 0; i < lives; i++) 
 	{
-		player_lives.push_back(shared_ptr<GameObject>(new Life(i)));
+		player_lives.push_back(make_shared<Life>(i));
 	}
 
 }
@@ -263,7 +263,7 @@ void Level::update()
 					if(collider.shotAndAsteroid(asteroid, deadly))
 					{
 						//Create explosion here.
-						explosions.push_back(shared_ptr<ShotExplosion>(new ShotExplosion(asteroid->x, asteroid->y, deadly->velocityX/2, deadly->velocityY/2, 107/255.0, 34/255.0, 34/255.0)));
+						explosions.push_back(make_shared<ShotExplosion>(asteroid->x, asteroid->y, deadly->velocityX/2, deadly->velocityY/2, 107/255.0, 34/255.0, 34/255.0));
 
 						//Split the asteroid.
 						list<shared_ptr<GameObject>> toAdd = asteroid->split(deadly->velocityX, deadly->velocityY);
@@ -274,7 +274,7 @@ void Level::update()
 
 						//Score the asteroid points.
 						if(score.addScore(object->points))
-							player_lives.push_back(shared_ptr<GameObject>(new Life(player_lives.size())));
+							player_lives.push_back(make_shared<Life>(player_lives.size()));
 
 						//Remove the asteroid from the list of objects.
 						objects.remove(object);
@@ -294,7 +294,7 @@ void Level::update()
 					if(collider.shotAndAsteroid(asteroid, deadly))
 					{
 						//Create explosion here.
-						explosions.push_back(shared_ptr<ShotExplosion>(new ShotExplosion(asteroid->x, asteroid->y, deadly->velocityX, deadly->velocityY, 107/255.0, 34/255.0, 34/255.0)));
+						explosions.push_back(make_shared<ShotExplosion>(asteroid->x, asteroid->y, deadly->velocityX, deadly->velocityY, 107/255.0, 34/255.0, 34/255.0));
 
 						//Split the asteroid.
 						list<shared_ptr<GameObject>> toAdd = asteroid->split(deadly->velocityX, deadly->velocityY);
@@ -328,8 +328,8 @@ void Level::update()
 						removeLife();
 	
 						//Create explosion here.
-						explosions.push_back(shared_ptr<Explosion>(new Explosion(playerShip->x, playerShip->y, asteroid->velocityX/2, asteroid->velocityY/2, 63/255.0f, 69/255.0f, 101/255.0f)));
-						explosions.push_back(shared_ptr<Explosion>(new Explosion(asteroid->x, asteroid->y,  playerShip->velocityX/2, playerShip->velocityY/2, 107/255.0, 34/255.0, 34/255.0)));
+						explosions.push_back(make_shared<Explosion>(playerShip->x, playerShip->y, asteroid->velocityX/2, asteroid->velocityY/2, 63/255.0f, 69/255.0f, 101/255.0f));
+						explosions.push_back(make_shared<Explosion>(asteroid->x, asteroid->y,  playerShip->velocityX/2, playerShip->velocityY/2, 107/255.0, 34/255.0, 34/255.0));
 
 						//Get the direction from ship to asteroid.
 						float dx = playerShip->x - asteroid->x;
@@ -366,8 +366,8 @@ void Level::update()
 						alienShip->KillAlienShip();
 	
 						//Create explosion here.
-						explosions.push_back(shared_ptr<Explosion>(new Explosion(alienShip->x, alienShip->y, asteroid->velocityX/2, asteroid->velocityY/2, 0.329412, 0.329412, 0.329412)));
-						explosions.push_back(shared_ptr<Explosion>(new Explosion(asteroid->x, asteroid->y,  alienShip->velocityX/2, alienShip->velocityY/2, 107/255.0, 34/255.0, 34/255.0)));
+						explosions.push_back(make_shared<Explosion>(alienShip->x, alienShip->y, asteroid->velocityX/2, asteroid->velocityY/2, 0.329412, 0.329412, 0.329412));
+						explosions.push_back(make_shared<Explosion>(asteroid->x, asteroid->y,  alienShip->velocityX/2, alienShip->velocityY/2, 107/255.0, 34/255.0, 34/255.0));
 
 
 						//Get the direction from ship to asteroid.
@@ -412,9 +412,9 @@ void Level::update()
 						//Destroy the ship.
 						alienShip->KillAlienShip();
 						if(score.addScore(alienShip->points))
-							player_lives.push_back(shared_ptr<GameObject>(new Life(player_lives.size())));
+							player_lives.push_back(make_shared<Life>(player_lives.size()));
 
-						explosions.push_back(shared_ptr<ShotExplosion>(new ShotExplosion(alienShip->x, alienShip->y,  deadly->velocityX, deadly->velocityY, 0.329412, 0.329412, 0.329412)));
+						explosions.push_back(make_shared<ShotExplosion>(alienShip->x, alienShip->y,  deadly->velocityX, deadly->velocityY, 0.329412, 0.329412, 0.329412));
 
 						//Remove the shot.
 						pshots.remove(deadly);
@@ -448,7 +448,7 @@ void Level::update()
 						removeLife();
 
 						//Create explosion here.
-						explosions.push_back(shared_ptr<ShotExplosion>(new ShotExplosion(playerShip->x, playerShip->y, deadly->velocityX, deadly->velocityY, 63/255.0f, 69/255.0f, 101/255.0f)));
+						explosions.push_back(make_shared<ShotExplosion>(playerShip->x, playerShip->y, deadly->velocityX, deadly->velocityY, 63/255.0f, 69/255.0f, 101/255.0f));
 						
 
 						//Reset the player ship.
@@ -471,8 +471,8 @@ void Level::update()
 						removeLife();
 
 						//Create explosion here.
-						explosions.push_back(shared_ptr<Explosion>(new Explosion(playerShip->x, playerShip->y, alienShip->velocityX/2, alienShip->velocityY/2, 63/255.0f, 69/255.0f, 101/255.0f)));
-						explosions.push_back(shared_ptr<Explosion>(new Explosion(alienShip->x, alienShip->y, alienShip->velocityX/2, playerShip->velocityY/2, 0.329412, 0.329412, 0.329412)));
+						explosions.push_back(make_shared<Explosion>(playerShip->x, playerShip->y, alienShip->velocityX/2, alienShip->velocityY/2, 63/255.0f, 69/255.0f, 101/255.0f));
+						explosions.push_back(make_shared<Explosion>(alienShip->x, alienShip->y, alienShip->velocityX/2, playerShip->velocityY/2, 0.329412, 0.329412, 0.329412));
 
 						//Reset the player ship.
 						playerShip->acceleration = 0;
@@ -548,7 +548,7 @@ void Level::update()
 		}
 
 		if(!alienShip->GetAlive() && !alienShip->GetIsSmall())
-			alienShip = shared_ptr<AlienSpaceShip>(new AlienSpaceShip(true));
+			alienShip = make_shared<AlienSpaceShip>(true);
 		////Alien ship.
 		alienShip->update(count++, score.getScore(), objects.size());
 
@@ -575,7 +575,7 @@ void Level::makeShot()
 		float yVel = -playerShip->shotVelocity*cos(angle) + playerShip->velocityY;//Adding the playerShip velocity removes the velocity of the player ship.
 	
 		if(pshots.size() < MAX_SHOTS)
-			pshots.push_back(shared_ptr<Shot>(new Shot(playerShip->x, playerShip->y, xVel, yVel, playerShip->angle)));
+			pshots.push_back(make_shared<Shot>(playerShip->x, playerShip->y, xVel, yVel, playerShip->angle));
 		//Note that we are inserting in the back to keep the older shots in the front.
 	}
 }
@@ -633,7 +633,7 @@ void Level::makeAlienShot()
 		xVel = alienShip->GetShotVelocity() * (dirX/mag) + alienShip->velocityX;
 		yVel = -alienShip->GetShotVelocity() * (dirY/mag) + alienShip->velocityY;
 
-		ashots.push_back(shared_ptr<Shot>(new Shot(alienShip->x, alienShip->y, xVel, yVel, 0)));
+		ashots.push_back(make_shared<Shot>(alienShip->x, alienShip->y, xVel, yVel, 0));
 	}
 	else if(random >= asteroid_s && random <= asteroid_f && objects.size() > 1)
 	{
@@ -681,7 +681,7 @@ void Level::makeAlienShot()
 		xVel = alienShip->GetShotVelocity() * (dirX/mag) + alienShip->velocityX;
 		yVel = -alienShip->GetShotVelocity() * (dirY/mag) + alienShip->velocityY;
 
-		ashots.push_back(shared_ptr<Shot>(new Shot(alienShip->x, alienShip->y, xVel, yVel, 0)));
+		ashots.push_back(make_shared<Shot>(alienShip->x, alienShip->y, xVel, yVel, 0));
 	}
 	else
 	{
@@ -693,7 +693,7 @@ void Level::makeAlienShot()
 		xVel = alienShip->GetShotVelocity() * sin(angle) + alienShip->velocityX;
 		yVel = -alienShip->GetShotVelocity() * cos(angle) + alienShip->velocityY;
 
-		ashots.push_back(shared_ptr<Shot>(new Shot(alienShip->x, alienShip->y, xVel, yVel, angle)));
+		ashots.push_back(make_shared<Shot>(alienShip->x, alienShip->y, xVel, yVel, angle));
 	}
 }
 

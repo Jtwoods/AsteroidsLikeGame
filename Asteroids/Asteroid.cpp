@@ -147,8 +147,8 @@ list<shared_ptr<GameObject>> Asteroid::split(float xVel, float yVel)
 	if(radius > MIN_RADIUS) 
 	{
 		//Build the new asteroids.
-		shared_ptr<GameObject> one = shared_ptr<GameObject>(new Asteroid(radius - .2f));
-		shared_ptr<GameObject> two = shared_ptr<GameObject>(new Asteroid(radius - .2f));
+		shared_ptr<GameObject> one = make_shared<Asteroid>(radius - .2f);
+		shared_ptr<GameObject> two = make_shared<Asteroid>(radius - .2f);
 
 		one->points = (int)points*2;
 		two->points = (int)points*2;

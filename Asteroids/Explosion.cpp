@@ -38,7 +38,7 @@ Explosion::Explosion(float X, float Y, float xVel, float yVel, float red, float 
 
 	for(int i = 0; i < PARTICLE_COUNT; i++)
 	{
-		particles.push_back(shared_ptr<GameObject>(new Particle(X, Y, xVel, yVel, red, green, blue)));
+		particles.push_back(make_shared<Particle>(X, Y, xVel, yVel, red, green, blue));
 	}
 }
 

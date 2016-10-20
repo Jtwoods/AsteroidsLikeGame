@@ -39,7 +39,7 @@ ShotExplosion::ShotExplosion(float X, float Y, float xVel, float yVel, float red
 
 	for(int i = 0; i < SHOT_PARTICLE_COUNT; i++)
 	{
-		particles.push_back(shared_ptr<GameObject>(new ShotParticle(X, Y, xVel, yVel)));
+		particles.push_back(make_shared<ShotParticle>(X, Y, xVel, yVel));
 	}
 }
 
