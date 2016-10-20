@@ -139,18 +139,14 @@ void Movement::move(shared_ptr<AlienSpaceShip> object)
 	object->z += object->velocityZ;
 
 	//Keep the object on the screen.
-	if(object->x > WIDTH)
+	if(object->x > WIDTH || object->x < -WIDTH)
 	{
-		object->alive = false;
-		object->dead = true;
+		object->KillAlienShip();
 	}
-	else if(object->x < -WIDTH)
-	{
-		object->alive = false;
-		object->dead = true;
-	}
+
 	if(object->y > HEIGHT)
 		object->y = -HEIGHT + 0.1f;
+
 	else if(object->y < -HEIGHT)
 		object->y = HEIGHT - 0.1f;
 }

@@ -96,16 +96,16 @@ bool Collisions::shipAndAsteroid(shared_ptr<Asteroid> asteroid, shared_ptr<Alien
 
 	//Build the needed variables.
 	float frontX = alienShip->x;
-	float frontY = alienShip->y + alienShip->height;
+	float frontY = alienShip->y + alienShip->GetHeight();
 
-	float rightX = alienShip->x +  alienShip->width;
+	float rightX = alienShip->x +  alienShip->GetWidth();
 	float rightY = alienShip->y;
 
-	float leftX = alienShip->x - alienShip->width;
+	float leftX = alienShip->x - alienShip->GetWidth();
 	float leftY = alienShip->y;
 
 	float backX = alienShip->x;
-	float backY = alienShip->y - alienShip->height;
+	float backY = alienShip->y - alienShip->GetHeight();
 
 	//Are any of the points inside the asteroid?
 	if(dist(frontX, asteroid->x, frontY, asteroid->y) < asteroid->radius)
@@ -262,16 +262,16 @@ bool Collisions::shotAndShip(shared_ptr<Shot> shot, shared_ptr<AlienSpaceShip> a
 	int count = 0;
 
 	coords[0] = alienShip->x;
-	coords[1] = alienShip->y + alienShip->height;
+	coords[1] = alienShip->y + alienShip->GetHeight();
 
-	coords[2] = alienShip->x +  alienShip->width;
+	coords[2] = alienShip->x +  alienShip->GetWidth();
 	coords[3] = alienShip->y;
 
-	coords[4] = alienShip->x - alienShip->width;
+	coords[4] = alienShip->x - alienShip->GetWidth();
 	coords[5] = alienShip->y;
 
 	coords[6] = alienShip->x;
-	coords[7] = alienShip->y - alienShip->height;
+	coords[7] = alienShip->y - alienShip->GetHeight();
 
 	//Cast the ray from the shot to the edge of the screen.
 	if(shot->y > 0)
@@ -379,16 +379,16 @@ bool Collisions::shipAndShip(shared_ptr<PlayerSpaceShip> playerShip, shared_ptr<
 	float aCoords[8];
 
 	aCoords[0] = alienShip->x;
-	aCoords[1] = alienShip->y + alienShip->height;
+	aCoords[1] = alienShip->y + alienShip->GetHeight();
 
-	aCoords[2] = alienShip->x +  alienShip->width;
+	aCoords[2] = alienShip->x +  alienShip->GetWidth();
 	aCoords[3] = alienShip->y;
 
-	aCoords[4] = alienShip->x - alienShip->width;
+	aCoords[4] = alienShip->x - alienShip->GetWidth();
 	aCoords[5] = alienShip->y;
 
 	aCoords[6] = alienShip->x;
-	aCoords[7] = alienShip->y - alienShip->height;
+	aCoords[7] = alienShip->y - alienShip->GetHeight();
 
 
 	//Check each line in the alien ship for intersection with the lines in the player ship.

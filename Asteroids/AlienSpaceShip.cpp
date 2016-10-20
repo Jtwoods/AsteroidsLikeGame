@@ -19,7 +19,6 @@ using namespace std;
 
 AlienSpaceShip::AlienSpaceShip()
 {
-
 	//Set initial angular velocity.
 	is_small = false;
 	alive = false;
@@ -50,11 +49,10 @@ AlienSpaceShip::AlienSpaceShip()
 	init();
 }
 
-AlienSpaceShip::AlienSpaceShip(bool is_small_now)
+AlienSpaceShip::AlienSpaceShip(bool is_small_now) : is_small(is_small_now)
 {
 
 	//Set initial angular velocity.
-	is_small = is_small_now;
 	alive = false;
 	dead = false;
 	angle = 0.0f;
@@ -212,4 +210,85 @@ void AlienSpaceShip::draw()
 		glPopMatrix();
 		glPopMatrix();
 	}
+}
+
+bool AlienSpaceShip::GetAlive()
+{
+	return alive;
+}
+
+void AlienSpaceShip::KillAlienShip()
+{
+	alive = false;
+	dead = true;
+}
+
+bool AlienSpaceShip::GetIsSmall()
+{
+	return is_small;
+}
+
+void AlienSpaceShip::SetIsSmall(bool is_small_now)
+{
+	is_small = is_small_now;
+}
+
+float AlienSpaceShip::GetHeight()
+{
+	return height;
+}
+
+void AlienSpaceShip::SetHeight(float h)
+{
+	height = h;
+}
+
+float AlienSpaceShip::GetWidth()
+{
+	return width;
+}
+
+void AlienSpaceShip::SetWidth(float w)
+{
+	width = w;
+}
+
+float AlienSpaceShip::GetShotVelocity()
+{
+	return shotVelocity;
+}
+
+void AlienSpaceShip::SetShotVelocity(float velocity)
+{
+	shotVelocity = velocity;
+}
+
+int AlienSpaceShip::GetPSubP()
+{
+	return p_p;
+}
+
+void AlienSpaceShip::SetPSubP(int p)
+{
+	p_p = p;
+}
+
+int AlienSpaceShip::GetPSubA()
+{
+	return p_a;
+}
+
+void AlienSpaceShip::SetPSubA(int a)
+{
+	p_a = a;
+}
+
+int AlienSpaceShip::GetPSubR()
+{
+	return p_r;
+}
+
+void AlienSpaceShip::SetPSubR(int r)
+{
+	p_r = r;
 }
